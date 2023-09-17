@@ -11,6 +11,7 @@ export const ImageGallery = ({ query, onClick }) => {
   const [page, setPage] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [prevQuery, setPrevQuery] = useState('');
+  const [totalHits, setTotalHits] = useState(0);
 
   const fetchImages = async () => {
     setIsLoading(true);
@@ -35,6 +36,7 @@ export const ImageGallery = ({ query, onClick }) => {
         setIsLoading(false);
       } else {
         setImages(prevImages => [...prevImages, ...images.hits]);
+        setTotalHits(images.totalHits);
         setIsLoading(false);
 
         if (page === 1) {
@@ -82,7 +84,7 @@ export const ImageGallery = ({ query, onClick }) => {
           />
         ))}
       </ul>
-      {images.length > 0 && <Button onClick={handleButton} />}
+      {images.length < totalHits && <Button onClick={handleButton} />}
     </div>
   );
 };
