@@ -13,10 +13,18 @@ export const App = () => {
 
   const handleImageClick = image => {
     setSelectedImage(image);
+    document.addEventListener('keydown', handleKeyDown);
   };
 
   const handleModalClose = () => {
     setSelectedImage(null);
+  };
+
+  const handleKeyDown = e => {
+    if (e.key === 'Escape') {
+      handleModalClose();
+      document.removeEventListener('keydown', handleKeyDown);
+    }
   };
 
   return (
